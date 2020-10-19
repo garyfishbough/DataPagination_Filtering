@@ -29,7 +29,10 @@ function showPage(list, page) {
   set inside a template literal.
   */
   for (let i = startIndex; i < endIndex; i++) {
-    items.insertAdjacentHTML('beforeend', `<li class="student-item cf">
+    if (i === list.length) {
+      break; // Will break out of loop once last photo is added, else it will continue until then.
+    } else {
+      items.insertAdjacentHTML('beforeend', `<li class="student-item cf">
           <div class="student-details">
             <img class="avatar" src="${list[i].picture["thumbnail"]}" alt="Profile Picture">
             <h3>${list[i].name["first"]} ${list[i].name["last"]}</h3>
@@ -39,6 +42,8 @@ function showPage(list, page) {
             <span class="date">Joined ${list[i].registered["date"]}</span>
           </div>
         </li>`);
+    }
+
   }
 }
 
@@ -75,7 +80,7 @@ function addPagination(list) {
   diplayed, it will also set the active class to the current button clicked and remove it from the  previous
   button that was clicked.
   */
-  for (let i = 0; i <= numbPages + 1; i++) {
+  for (let i = 0; i <= numbPages; i++) {
     document.querySelectorAll('button')[i].addEventListener('click', function() {
       pageNumb = document.querySelectorAll("div.pagination button")[i].textContent;
       let previousButton = document.querySelector('.active');
